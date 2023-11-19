@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/kamilturek/ddx/ddb"
 	"github.com/spf13/cobra"
@@ -36,7 +37,8 @@ var rootCmd = &cobra.Command{
 			names, err := ddb.ListTables()
 			tableNames = names
 			if err != nil {
-				panic(err)
+				fmt.Fprintf(os.Stderr, "error listing tables: %v\n", err)
+				os.Exit(1)
 			}
 		}
 
@@ -49,7 +51,8 @@ var rootCmd = &cobra.Command{
 
 			result, err := ddb.GetKeySchemas(tableName)
 			if err != nil {
-				panic(err)
+				fmt.Fprintf(os.Stderr, "error describing table: %v\n", err)
+				os.Exit(1)
 			}
 
 			keySchemas = append(keySchemas, result...)
@@ -59,7 +62,8 @@ var rootCmd = &cobra.Command{
 
 		out, err := format(keySchemas)
 		if err != nil {
-			panic(err)
+			fmt.Fprintf(os.Stderr, "error formatting key schemas: %v\n", err)
+			os.Exit(1)
 		}
 
 		fmt.Println(*out)
