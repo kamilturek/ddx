@@ -33,6 +33,7 @@ Flags:
   -h, --help                help for ddx
   -l, --limit int           maximum number of tables listed (default -1)
   -t, --table-name string   table name whose key schema should be shown
+  -v, --version             version for ddx
 ```
 
 ## Examples
