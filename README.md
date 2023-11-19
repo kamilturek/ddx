@@ -21,7 +21,7 @@ go install github.com/kamilturek/ddx
 ## Usage
 
 ```sh
-ddx --help
+$ ddx --help
 A tool for quickly viewing your DynamoDB table and index key schemas
 
 Usage:
