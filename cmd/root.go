@@ -19,9 +19,10 @@ var formatters = map[string]ddb.KeySchemaFormatter{
 }
 
 var rootCmd = &cobra.Command{
-	Use:   "ddx",
-	Short: "Show DynamoDB table key schema",
-	Long:  "A tool for quickly viewing your DynamoDB table and index key schemas",
+	Use:     "ddx",
+	Short:   "Show DynamoDB table key schema",
+	Long:    "A tool for quickly viewing your DynamoDB table and index key schemas",
+	Version: "0.1.0",
 	Args: func(cmd *cobra.Command, args []string) error {
 		if _, ok := formatters[format]; !ok {
 			return fmt.Errorf("invalid format specified: %s", format)
