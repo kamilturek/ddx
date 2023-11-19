@@ -8,6 +8,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var all bool
 var tableName string
 var format string
 var limit int
@@ -26,6 +27,10 @@ var rootCmd = &cobra.Command{
 			return fmt.Errorf("invalid format specified: %s", format)
 		}
 
+		if tableName == "" && !all {
+			return fmt.Errorf("either --table-name or --all must be specified")
+		}
+
 		return nil
 	},
 	Run: func(cmd *cobra.Command, args []string) {
@@ -33,7 +38,9 @@ var rootCmd = &cobra.Command{
 
 		if tableName != "" {
 			tableNames = []string{tableName}
-		} else {
+		}
+
+		if all {
 			names, err := ddb.ListTables()
 			tableNames = names
 			if err != nil {
@@ -71,7 +78,8 @@ var rootCmd = &cobra.Command{
 }
 
 func init() {
-	rootCmd.Flags().StringVarP(&tableName, "table-name", "t", "", "table name whose key schema should be shown (all if not specified)")
+	rootCmd.Flags().BoolVarP(&all, "all", "a", false, "list all tables")
+	rootCmd.Flags().StringVarP(&tableName, "table-name", "t", "", "table name whose key schema should be shown")
 	rootCmd.Flags().StringVarP(&format, "format", "f", "text", "output format, available: \"text\", \"json\"")
 	rootCmd.Flags().IntVarP(&limit, "limit", "l", -1, "maximum number of tables listed")
 }

@@ -1,7 +1,7 @@
 # ddx - DynamoDB Key Schema Viewer
 
-ddx is a CLI tool designed to help you quickly and conveniently view the key
-schemas of your DynamoDB tables and their indexes. With ddx, you can get a
+`ddx` is a CLI tool designed to help you quickly and conveniently view the key
+schemas of your DynamoDB tables and their indexes. With `ddx`, you can get a
 summary of the partition keys and sort keys for your DynamoDB tables, with
 support for various output formats.
 
@@ -28,10 +28,11 @@ Usage:
   ddx [flags]
 
 Flags:
+  -a, --all                 list all tables
   -f, --format string       output format, available: "text", "json" (default "text")
   -h, --help                help for ddx
   -l, --limit int           maximum number of tables listed (default -1)
-  -t, --table-name string   table name whose key schema should be shown (all if not specified)
+  -t, --table-name string   table name whose key schema should be shown
 ```
 
 ## Examples
@@ -39,7 +40,7 @@ Flags:
 View key schema for a specific table:
 
 ```sh
-$ ddb --table-name Users
+$ ddx --table-name Users
 Table Name:     Users
 Table Type:     BASE
 Parition Key:   UserID
@@ -48,7 +49,7 @@ Parition Key:   UserID
 View key schemas for all tables in text format:
 
 ```sh
-$ ddb
+$ ddx --all
 Table Name:     Books
 Table Type:     BASE
 Parition Key:   AuthorID
@@ -71,7 +72,7 @@ Parition Key:   UserID
 Output key schemas in JSON format:
 
 ```sh
-$ ddx --format json
+$ ddx --all --format json
 [
     {
        "TableName": "Books",
